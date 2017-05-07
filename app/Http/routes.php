@@ -12,5 +12,72 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'Home Page do Site';
+});
+
+Route::get('/contato', function () {
+    return 'Página de contato';
+});
+
+Route::get('empresa', function () {
+    return 'Página empresa';
+});
+
+Route::post('/cadastrar/user', function () {
+    return 'Cadastrando usuário...';
+});
+
+// Define quais tipos de requisição servem para aquela rota
+Route::match(['post', 'get'], '/match', function () {
+    return 'minha rota match';
+});
+
+// Recebe qualquer tipo de requisição
+Route::any('any', function () {
+    return 'Rota do tipo any';
+});
+
+
+Route::get('/produto', function () {
+    return 'Listagem dos produtos';
+});
+
+Route::get('produto/adicionar', function () {
+    return 'Form de Add Prod';
+});
+
+// Rota com parametros e validação
+Route::get('produto/editar/{idProd}', function ($idProd) {
+    return "Editar o Produto => {$idProd}";
+})->where('idProd', '[0-9]+');
+
+// Rota com parametro opcional
+Route::get('produto/deletar/{idProd?}', function ($idProd = 'Valor não passado') {
+    return "Deletar o Produto => {$idProd}";
+});
+
+// Rota com parametros dinâmicos
+Route::get('produto/{idProd}/imagem/{idImagem}', function ($idProd, $idImagem) {
+    return "Produto => {$idProd} e imagem -> {$idImagem}";
+});
+
+// Agrupando rotas
+Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
+
+    Route::get('/', function () {
+        return view('painel.home.index');
+    });
+
+    Route::get('financeiro', function () {
+        return view('painel.financeiro.index');
+    });
+
+    Route::get('usuarios', function () {
+        return 'Usuarios do painel';
+    });
+
+});
+
+Route::get('auth/login', function() {
+    return 'login';
 });
