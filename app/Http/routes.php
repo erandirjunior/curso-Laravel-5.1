@@ -62,7 +62,7 @@ Route::get('produto/{idProd}/imagem/{idImagem}', function ($idProd, $idImagem) {
 });
 
 // Agrupando rotas
-Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'painel', 'middleware' => 'my-middleware'], function () {
 
     Route::get('/', function () {
         return view('painel.home.index');
@@ -78,6 +78,6 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
 
 });
 
-Route::get('auth/login', function() {
-    return 'login';
+Route::get('login', function() {
+    return 'Formulário de login';
 });
