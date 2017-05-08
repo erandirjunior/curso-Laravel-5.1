@@ -15,7 +15,7 @@ Route::get('/', function () {
     return 'Home Page do Site';
 });
 
-Route::get('/contato', function () {
+/*Route::get('/contato', function () {
     return 'Página de contato';
 });
 
@@ -80,4 +80,11 @@ Route::group(['prefix' => 'painel', 'middleware' => 'my-middleware'], function (
 
 Route::get('login', function() {
     return 'Formulário de login';
-});
+});*/
+
+Route::get('produtos', 'ProdutoController@index');
+Route::get('produto/create', 'ProdutoController@create');
+Route::post('produto/create', 'ProdutoController@store');
+Route::get('produto/{idProd}', 'ProdutoController@show');
+/*Route::get('produto/{idProd}/{idCod}', 'ProdutoController@showTwo');*/
+Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
