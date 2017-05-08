@@ -88,3 +88,7 @@ Route::post('produto/create', 'ProdutoController@store');
 Route::get('produto/{idProd}', 'ProdutoController@show');
 /*Route::get('produto/{idProd}/{idCod}', 'ProdutoController@showTwo');*/
 Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
+
+
+Route::controller('/carros', 'CarrosController');
+Route::controller('/carros/adicionar', 'CarrosController');
