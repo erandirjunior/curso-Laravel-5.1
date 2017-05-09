@@ -19,14 +19,18 @@ class CarrosController extends Controller
         // Obtendo dados por uma model
         $carros = Carro::get();
 
+        $titulo = "Listagem dos carros";
+
         // Passado dados para a view
-        return view('painel.carros.index', compact('carros'));
+        return view('painel.carros.index', compact('carros', 'titulo'));
     }
 
     public function getAdicionar()
     {
+        $titulo = 'Adicionar novo carro';
+
         // Retornando uma view
-        return view('painel.carros.create-edit');
+        return view('painel.carros.create-edit', compact('titulo'));
     }
 
     public function getEditar($id)
