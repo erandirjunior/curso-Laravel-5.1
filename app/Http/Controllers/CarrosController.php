@@ -7,24 +7,31 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Models\Painel\Carro;
 
 class CarrosController extends Controller
 {
     public function getIndex()
     {
-        $carros = DB::table('carros')->get();
+        // Jeito simplificado de obter dados
+        /*$carros = DB::table('carros')->get();*/
 
-        
+        // Obtendo dados por uma model
+        $carros = Carro::get();
+
+        // Passado dados para a view
         return view('painel.carros.index', compact('carros'));
     }
 
     public function getAdicionar()
     {
+        // Retornando uma view
         return view('painel.carros.create-edit');
     }
 
     public function getEditar($id)
     {
+        // Passado dados para a view
         return view('painel.carros.create-edit', ['idCarro' => $id]);
     }
 
@@ -43,6 +50,11 @@ class CarrosController extends Controller
         return 'Listando os carros de luxo';
     }
 
+    /**
+     * Método chamado quando nenhum outro método corresponde ao chamado na rota
+     * @param  array  $params [description]
+     * @return [type]         [description]
+     */
     public function missingMethod($params = array())
     {
         return 'ERRO 404, página não encontrada!';
