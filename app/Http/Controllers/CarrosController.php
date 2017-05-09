@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
 
 class CarrosController extends Controller
 {
     public function getIndex()
     {
-        return view('painel.carros.index');
+        $carros = DB::table('carros')->get();
+
+        
+        return view('painel.carros.index', compact('carros'));
     }
 
     public function getAdicionar()
