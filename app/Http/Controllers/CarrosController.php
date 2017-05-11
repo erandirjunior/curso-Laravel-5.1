@@ -52,9 +52,19 @@ class CarrosController extends Controller
 
         // retorna se a requisição é do tipo desejado
         //dd($request->isMethod('post'));
+        
+        /*$carro = new Carro();
+        $carro->nome = $request->input('nome');
+        $carro->placa = $request->input('placa');
+        $carro->save();*/
+
+        $dadosForm = $request->all();
+        Carro::create($dadosForm);
 
         // redireciona para alguma url
-        return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
+        //return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
+        
+        return redirect('carros');
     }
 
     public function getEditar($id)
