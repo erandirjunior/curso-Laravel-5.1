@@ -33,6 +33,30 @@ class CarrosController extends Controller
         return view('painel.carros.create-edit', compact('titulo'));
     }
 
+    public function postAdicionar(REQUEST $request)
+    {
+        // retorna um dado especifico do formulário
+        //dd($request->input('nome'));
+        
+        // retorna todos os dados do formulário
+        //dd($request->all());
+        
+        // retorna somente os dados desejados
+        //dd($request->only('nome', 'placa'));
+        
+        // retorna todos os campos, exceto o desejado
+        //dd($request->except('_token'));
+
+        // retorna o tipo de requisição
+        //dd($request->method());
+
+        // retorna se a requisição é do tipo desejado
+        //dd($request->isMethod('post'));
+
+        // redireciona para alguma url
+        return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
+    }
+
     public function getEditar($id)
     {
         // Passado dados para a view
