@@ -3,6 +3,14 @@
 @section('content')
 <h1>Getão do Carro</h1>
 
+    @if (count($errors) > 0)
+        @foreach ($errors->all() as $error)
+
+            {{$error}}
+
+        @endforeach
+    @endif
+
     @if (isset($carro)) 
     
         {!!Form::open(['url' => "carros/editar/$carro->id"])!!}

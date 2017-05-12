@@ -1,10 +1,13 @@
-<!-- Informa a qual arquivo deseja utilizar as seções -->
+<!-- Info    {
+rma a qual arquivo deseja utilizar as seções -->
 @extends('painel.templates.index')
 
 @section('slide')
     @parent <!-- Adiciona o conteúdo pai -->
     Conteúdo do slide
 @endsection
+
+<p>{!! HTML::link('carros/adicionar', 'Cadastrar Novo Carro')!!}</p>
 
 <!-- Conteúdo no qual deseja incluir no arquivo pai-->
 @section('content')

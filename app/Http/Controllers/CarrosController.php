@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+//use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Painel\Carro;
+use Validator;
 
 class CarrosController extends Controller
 {
@@ -59,6 +60,21 @@ class CarrosController extends Controller
         $carro->save();*/
 
         $dadosForm = $request->all();
+
+        // Regras de validação
+        $rules = [
+            'nome' => 'required|min:3|max:100',
+            'placa' => 'required|min:7|max:7'
+        ];
+
+        // Aplica as regras de validação aos devidos campos
+        $validator = Validator::make($dadosForm, $rules);
+
+        // verifica se ocorreu algum erro
+        if ($validator->fails()) {
+            return redirect('carros/adicionar')->withErrors($validator)->withInput();
+        }
+
         Carro::create($dadosForm);
 
         // redireciona para alguma url
