@@ -3,15 +3,19 @@
 @section('content')
 <h1>Getão do Carro</h1>
 
-    @if (isset($idCarro))
-        <p>Exibe o carro: {{$idCarro}}</p>
+    @if (isset($carro)) 
+    
+        {!!Form::open(['url' => "carros/editar/$carro->id"])!!}
+
+    @else
+
+        {!!Form::open(['url' => 'carros/adicionar'])!!}
+
     @endif
 
-    {!!Form::open(['url' => 'carros/adicionar'])!!}
+        {!!Form::text('nome', $carro->nome ?? null, ['placeholder' => 'Nome do Carro'])!!}
 
-        {!!Form::text('nome', old('nome'), ['placeholder' => 'Nome do Carro'])!!}
-
-        {!!Form::text('placa', old('placa'), ['placeholder' => 'Placa do Carro'])!!}
+        {!!Form::text('placa', $carro->placa ?? null, ['placeholder' => 'Placa do Carro'])!!}
 
         {!!Form::submit('Enviar')!!}
 

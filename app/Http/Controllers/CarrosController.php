@@ -69,13 +69,19 @@ class CarrosController extends Controller
 
     public function getEditar($id)
     {
+        $carro = Carro::find($id);
+
+
         // Passado dados para a view
-        return view('painel.carros.create-edit', ['idCarro' => $id]);
+        return view('painel.carros.create-edit', compact('carro'));
     }
 
-    public function postEditar($dados)
+    public function postEditar(Request $request, $idCarro)
     {
-        return 'Editando o carro...';
+        $dadosForm = $request->except('_token');
+        Carro::where('id', $idCarro)->update($dadosForm);
+
+        return redirect('carros');
     }
 
     public function getDeletar($idCarro)
