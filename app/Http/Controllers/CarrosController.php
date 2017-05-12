@@ -18,7 +18,9 @@ class CarrosController extends Controller
         /*$carros = DB::table('carros')->get();*/
 
         // Obtendo dados por uma model
-        $carros = Carro::get();
+        //$carros = Carro::get();
+
+        $carros = Carro::paginate(2);
 
         $titulo = "Listagem dos carros";
 

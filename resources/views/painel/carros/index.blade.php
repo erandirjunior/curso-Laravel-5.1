@@ -11,7 +11,9 @@ rma a qual arquivo deseja utilizar as seções -->
 
 <!-- Conteúdo no qual deseja incluir no arquivo pai-->
 @section('content')
-    <h1>Listagem dos carros do painel</h1>
+    <h1>Listagem dos carros do painel </h1>
+
+    Total = ({{$carros->total()}}) |  Por página = ({{$carros->count()}})
 
     {!!'<h2>Olá, eu sou um h2</h2>'!!}
 
@@ -24,6 +26,8 @@ rma a qual arquivo deseja utilizar as seções -->
     @empty
         <p>Nenhum carro cadastrado!</p>
     @endforelse
+
+    {!! $carros->render()!!}
 
     {{-- Inclusão da página de captura de e-mail --}}
     @include('painel.includes.email')
