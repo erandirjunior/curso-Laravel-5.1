@@ -79,6 +79,8 @@ class CarrosController extends Controller
     public function postEditar(Request $request, $idCarro)
     {
         $dadosForm = $request->except('_token');
+
+        // atualiza determinado dado do banco
         Carro::where('id', $idCarro)->update($dadosForm);
 
         return redirect('carros');
@@ -86,7 +88,13 @@ class CarrosController extends Controller
 
     public function getDeletar($idCarro)
     {
-        return "Deletando o carro {$idCarro}";
+        // busca o dado no banco passado determinado valor
+        $carro = Carro::find($idCarro);
+
+        // remove o dado do banco
+        $carro->delete();
+
+        return redirect('carros');
     }
 
     public function getListaCarrosLuxo()

@@ -15,7 +15,7 @@
     {{-- Listagem dos carros --}}
     @forelse ($carros as $carro)
         <p><!-- Utiliza a variavel passado para view -->
-        <b>Nome:</b> {{$carro->nome}} - ({{$carro->placa}}) {!! HTML::link("carros/editar/{$carro->id}", 'Editar') !!}
+        <b>Nome:</b> {{$carro->nome}} - ({{$carro->placa}}) {!! HTML::link("carros/editar/{$carro->id}", 'Editar') !!} {!! HTML::link("carros/deletar/{$carro->id}", 'Deletar') !!}
         </p>
         
     @empty
