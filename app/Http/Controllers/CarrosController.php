@@ -10,6 +10,7 @@ use DB;
 use App\Models\Painel\Carro;
 use Validator;
 use Cache;
+use Crypt;
 
 class CarrosController extends Controller
 {
@@ -148,7 +149,8 @@ class CarrosController extends Controller
             return Carro::all();
         });
 
-        $titulo = 'Cache Carros';
+        // Criptografando um valor
+        $titulo = Crypt::encrypt('Cache Carros');
 
         return view('painel.carros.cache', compact('carros', 'titulo'));
     }
