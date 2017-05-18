@@ -148,6 +148,8 @@ class CarrosController extends Controller
             return Carro::all();
         });
 
-        return $carros;
+        $titulo = 'Cache Carros';
+
+        return view('painel.carros.cache', compact('carros', 'titulo'));
     }
 }

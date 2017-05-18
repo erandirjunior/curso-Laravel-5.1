@@ -138,6 +138,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         'Illuminate\Html\HtmlServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
+
 
         /*
          * Application Service Providers...
