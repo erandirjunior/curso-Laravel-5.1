@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Painel\Carro;
 use Validator;
+use Cache;
 
 class CarrosController extends Controller
 {
@@ -128,5 +129,25 @@ class CarrosController extends Controller
     public function missingMethod($params = array())
     {
         return 'ERRO 404, página não encontrada!';
+    }
+
+    public function getListarCarrosCache()
+    {
+        // chave, valor e tempo de disponibilidade
+        /*Cache::put('carros', Carro::all(), 3);
+
+        if (Cache::has('carros')) {
+            return 'carro já está no cache';
+        }
+
+        // obter valor do cache
+        $carros = Cache::get('carros', 'Não existe carros');*/
+
+        // busca determinado valor, caso seja vazio, executa a função
+        $carros = Cache::remember('carros', 3, function () {
+            return Carro::all();
+        });
+
+        return $carros;
     }
 }
