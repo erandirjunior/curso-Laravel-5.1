@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{$titulo or 'Curso de Laravel 5.1'}}</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
 </head>
 <body>
 
