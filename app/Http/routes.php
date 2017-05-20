@@ -93,3 +93,16 @@ Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
 Route::controller('/carros', 'CarrosController');
 
 Route::controller('/users', 'UserController');
+
+
+/*Utilizando sessao no route*/
+Route::get('sessao/gravar', function() {
+    echo "Gravar: Gravando Sessão";
+
+    session(['msg' => 'Gravando sessão no laravel']);
+});
+
+Route::get('sessao/exibir', function() {
+    $msg = session('msg');
+    return $msg;
+});

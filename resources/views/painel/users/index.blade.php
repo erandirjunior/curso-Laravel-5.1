@@ -8,6 +8,10 @@ rma a qual arquivo deseja utilizar as seções -->
 @section('content')
     <h1>Listagem dos usuários do painel </h1>
 
+    @if ($status != '')
+        {{$status}}
+    @endif
+
     Total = ({{$users->total()}}) |  Por página = ({{$users->count()}})
 
     <table class="table table-bordered">

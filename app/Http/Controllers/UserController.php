@@ -21,14 +21,24 @@ class UserController extends Controller
         $this->request = $request;
         $this->user = $user;
     }
+
     public function getIndex()
     {
         $users = User::paginate(2);
 
         $titulo = "Usuários | Curso de Laravel";
 
+        $status = '';
+
+        // Verificando se existe uma sessão com determinada chave
+        if ($this->request->session()->has('status')) {
+            // Obtendo uma sessão com determinada chave
+            $status = $this->request->session()->get('status');
+        }
+        
+
         // Passado dados para a view
-        return view('painel.users.index', ['users' => $users, 'ctitulo' => $titulo]);
+        return view('painel.users.index', ['users' => $users, 'ctitulo' => $titulo, 'status' => $status]);
     }
 
     public function getAdicionar()
@@ -43,7 +53,7 @@ class UserController extends Controller
         // Aplica as regras de validação aos devidos campos
         $validator = Validator::make($dadosForm, User::$rules);
 
-        // verifica se ocorreu algum erro
+        // Verifica se ocorreu algum erro
         if ($validator->fails()) {
             return redirect('users/adicionar')->withErrors($validator)->withInput();
         }
@@ -52,7 +62,14 @@ class UserController extends Controller
 
         $this->user->create($dadosForm)->save();
 
+        $status = "Usuário ".$dadosForm['name']." criado com sucesso!";
+
+        // Criando uma sessão
+        //$this->request->session()->put('status', $status);
         
+        // Criando uma sessão flash, que só dura uma requisição
+        $this->request->session()->flash('status', $status);
+
         return redirect('users');
     }
 
