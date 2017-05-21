@@ -108,3 +108,12 @@ Route::get('sessao/exibir', function() {
 });
 
 Route::controller('collection', 'CollectionController');
+
+// Enviando e-mail com o laravel
+Route::get('email', function() {
+
+    Mail::raw('Mensagem de texto puro', function($m) {
+        $m->to('b1346276@mvrht.net', 'Teste')->subject('Enviando emails pelo laravel');
+    });
+
+});

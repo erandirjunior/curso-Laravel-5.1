@@ -10,6 +10,7 @@ use App\User;
 use Validator;
 use Hash;
 use Crypt;
+use Mail;
 
 class UserController extends Controller
 {
@@ -70,6 +71,9 @@ class UserController extends Controller
         // Criando uma sessão flash, que só dura uma requisição
         $this->request->session()->flash('status', $status);
 
+        // Chama o disparador de e-mails
+        $this->disparaEmail($dadosForm['name']);
+
         return redirect('users');
     }
 
@@ -124,5 +128,17 @@ class UserController extends Controller
     public function missingMethod($params = array())
     {
         return 'ERRO 404, página não encontrada!';
+    }
+
+    /**
+     * Envia um email
+     * 
+     * @param  string $nome nome do usuário
+     */
+    private function disparaEmail($nome)
+    {
+        Mail::send('emails.novousuario', ['nome' => $nome], function($m) {
+            $m->to('dfq29532@diwaq.com', 'Fulano')->subject('Novo usuário cadastrado')->attach('http://www.especializati.com.br/assets/portal/imgs/logo.png');
+        });
     }
 }
