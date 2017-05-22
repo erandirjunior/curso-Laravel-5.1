@@ -72,7 +72,9 @@ class UserController extends Controller
         $this->request->session()->flash('status', $status);
 
         // Chama o disparador de e-mails
-        $this->disparaEmail($dadosForm['name']);
+        //$this->disparaEmail($dadosForm['name']);
+
+        $this->disparaEmailFila($dadosForm['name']);
 
         return redirect('users');
     }
@@ -139,6 +141,18 @@ class UserController extends Controller
     {
         Mail::send('emails.novousuario', ['nome' => $nome], function($m) {
             $m->to('dfq29532@diwaq.com', 'Fulano')->subject('Novo usuário cadastrado')->attach('http://www.especializati.com.br/assets/portal/imgs/logo.png');
+        });
+    }
+
+    /**
+     * Envia um email
+     * 
+     * @param  string $nome nome do usuário
+     */
+    private function disparaEmailFila($nome)
+    {
+        Mail::queue('emails.novousuario', ['nome' => $nome], function($m) {
+            $m->to('ibv39619@diwaq.com', 'Fulano')->subject('Novo usuário cadastrado')->attach('http://www.especializati.com.br/assets/portal/imgs/logo.png');
         });
     }
 }
