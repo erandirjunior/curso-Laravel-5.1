@@ -8,12 +8,28 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Models\Painel\Carro;
-use Validator;
+//use Validator;
 use Cache;
 use Crypt;
 
 class CarrosController extends Controller
 {
+    private $carro;
+    private $request;
+    private $validator;
+
+    /**
+     * CarrosController constructor.
+     * @param $carro
+     * @param $request
+     */
+    public function __construct(Carro $carro, Request $request, \Illuminate\Validation\Factory $validator)
+    {
+        $this->carro = $carro;
+        $this->request = $request;
+        $this->validator = $validator;
+    }
+
     public function getIndex()
     {
         // Jeito simplificado de obter dados
@@ -22,7 +38,7 @@ class CarrosController extends Controller
         // Obtendo dados por uma model
         //$carros = Carro::get();
 
-        $carros = Carro::paginate(2);
+        $carros = $this->carro->paginate(2);
 
         $titulo = "Listagem dos carros";
 
@@ -38,7 +54,7 @@ class CarrosController extends Controller
         return view('painel.carros.create-edit', compact('titulo'));
     }
 
-    public function postAdicionar(REQUEST $request)
+    public function postAdicionar()
     {
         // retorna um dado especifico do formulário
         //dd($request->input('nome'));
@@ -63,7 +79,7 @@ class CarrosController extends Controller
         $carro->placa = $request->input('placa');
         $carro->save();*/
 
-        $dadosForm = $request->all();
+        $dadosForm = $this->request->all();
 
         // Regras de validação
         $rules = [
@@ -72,14 +88,14 @@ class CarrosController extends Controller
         ];
 
         // Aplica as regras de validação aos devidos campos
-        $validator = Validator::make($dadosForm, $rules);
+        $validator = $this->validator->make($dadosForm, $rules);
 
         // verifica se ocorreu algum erro
         if ($validator->fails()) {
             return redirect('carros/adicionar')->withErrors($validator)->withInput();
         }
 
-        Carro::create($dadosForm);
+        $this->carro->create($dadosForm);
 
         // redireciona para alguma url
         //return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
@@ -89,19 +105,19 @@ class CarrosController extends Controller
 
     public function getEditar($id)
     {
-        $carro = Carro::find($id);
+        $carro = $this->carro->find($id);
 
 
         // Passado dados para a view
         return view('painel.carros.create-edit', compact('carro'));
     }
 
-    public function postEditar(Request $request, $idCarro)
+    public function postEditar($idCarro)
     {
-        $dadosForm = $request->except('_token');
+        $dadosForm = $this->request->except('_token');
 
         // atualiza determinado dado do banco
-        Carro::where('id', $idCarro)->update($dadosForm);
+        $this->carro->where('id', $idCarro)->update($dadosForm);
 
         return redirect('carros');
     }
@@ -109,7 +125,7 @@ class CarrosController extends Controller
     public function getDeletar($idCarro)
     {
         // busca o dado no banco passado determinado valor
-        $carro = Carro::find($idCarro);
+        $carro = $this->carro->find($idCarro);
 
         // remove o dado do banco
         $carro->delete();
@@ -146,7 +162,7 @@ class CarrosController extends Controller
 
         // busca determinado valor, caso seja vazio, executa a função
         $carros = Cache::remember('carros', 3, function () {
-            return Carro::all();
+            return $this->carro->all();
         });
 
         // Criptografando um valor
