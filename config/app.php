@@ -140,6 +140,8 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        App\Providers\LogServiceProvider::class,
+
 
         /*
          * Application Service Providers...

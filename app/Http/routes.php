@@ -120,23 +120,12 @@ Route::get('email', function() {
 
 // Service Container
 Route::get('services', function() {
-    //dd(App::make('geraLog', [1,2,3,4,5,6,7]));
+    dd(App::make('geraLog', [1,2,3,4,5,6,7]));
     //dd(App::make('geraLogInstance'));
-    dd(App::make('geraLogInstanceAut'));
-
+    //dd(App::make('geraLogInstanceAut'));
 
     return '123';
 });
-
-App::bind('geraLog', function($app, $params) {
-    return Log::info('Gera log', $params);
-});
-
-App::singleton('geraLogInstance', function($app) {
-    return new LogSistem();
-});
-
-App::instance('geraLogInstanceAut', new LogSistem());
 
 class LogSistem
 {
