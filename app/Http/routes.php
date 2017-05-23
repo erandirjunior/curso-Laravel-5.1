@@ -117,3 +117,14 @@ Route::get('email', function() {
     });
 
 });
+
+// Service Container
+Route::get('services', function() {
+    dd(App::make('geraLog', [1,2,3,4,5,6,7]));
+
+    return '123';
+});
+
+App::bind('geraLog', function($app, $params) {
+    return Log::info('Gera log', $params);
+});
