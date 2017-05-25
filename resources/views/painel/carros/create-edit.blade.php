@@ -13,11 +13,11 @@
 
     @if (isset($carro))
 
-        {!!Form::open(['url' => "carros/editar/$carro->id"])!!}
+        {!!Form::open(['url' => "carros/editar/$carro->id", 'files' => true])!!}
 
     @else
 
-        {!!Form::open(['url' => 'carros/adicionar'])!!}
+        {!!Form::open(['url' => 'carros/adicionar', 'files' => true])!!}
 
     @endif
 
@@ -27,7 +27,7 @@
 
     {!!Form::select('id_marca', $marcas, $carro->id_marca ?? null, ['class' => 'form-group'])!!}
 
-    {{--{!!Form::file('file', ['class' => 'form-group'])!!}--}}
+    {!!Form::file('file', ['class' => 'form-group'])!!}
 
     {!!Form::submit('Enviar')!!}
 

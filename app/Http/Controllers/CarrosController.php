@@ -60,30 +60,31 @@ class CarrosController extends Controller
 
     public function postAdicionar()
     {
-        // retorna um dado especifico do formulário
-        //dd($request->input('nome'));
+        /*
+          // retorna um dado especifico do formulário
+         dd($request->input('nome'));
 
-        // retorna todos os dados do formulário
-        //dd($request->all());
+          // retorna todos os dados do formulário
+         dd($request->all());
 
-        // retorna somente os dados desejados
-        //dd($request->only('nome', 'placa'));
+          // retorna somente os dados desejados
+         dd($request->only('nome', 'placa'));
 
-        // retorna todos os campos, exceto o desejado
-        //dd($request->except('_token'));
+          // retorna todos os campos, exceto o desejado
+         dd($request->except('_token'));
 
-        // retorna o tipo de requisição
-        //dd($request->method());
+          // retorna o tipo de requisição
+         dd($request->method());
 
-        // retorna se a requisição é do tipo desejado
-        //dd($request->isMethod('post'));
+          // retorna se a requisição é do tipo desejado
+         dd($request->isMethod('post'));
 
-        /*$carro = new Carro();
-        $carro->nome = $request->input('nome');
-        $carro->placa = $request->input('placa');
-        $carro->save();*/
+         $carro = new Carro();
+         $carro->nome = $request->input('nome');
+         $carro->placa = $request->input('placa');
+         $carro->save();*/
 
-        $dadosForm = $this->request->all();
+        $dadosForm = $this->request->except('file');
 
         // Aplica as regras de validação aos devidos campos
         $validator = $this->validator->make($dadosForm, Carro::$rules);
@@ -91,6 +92,16 @@ class CarrosController extends Controller
         // verifica se ocorreu algum erro
         if ($validator->fails()) {
             return redirect('carros/adicionar')->withErrors($validator)->withInput();
+        }
+
+        // Pega o arquivo
+        $file = $this->request->file('file');
+
+        // Verifica se o arquivo existe e se ele é válido, caso for, move o arquivo para determinada pasta
+        if ($this->request->hasFile('file') && $file->isValid()) {
+            if ($file->getClientMimeType() == "image/jpeg" || $file->getClientMimeType() == "image/png") {
+                $file->move('assets/uploads/images', $file->getClientOriginalName());
+            }
         }
 
         $this->carro->create($dadosForm);
