@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Painel\MarcasCarro;
 use Illuminate\Http\Request;
 
 //use App\Http\Requests;
@@ -50,21 +51,24 @@ class CarrosController extends Controller
     {
         $titulo = 'Adicionar novo carro';
 
+        // Busca todas as marcas de carros
+        $marcas = MarcasCarro::lists('marca', 'id');
+
         // Retornando uma view
-        return view('painel.carros.create-edit', compact('titulo'));
+        return view('painel.carros.create-edit', compact('titulo', 'marcas'));
     }
 
     public function postAdicionar()
     {
         // retorna um dado especifico do formulário
         //dd($request->input('nome'));
-        
+
         // retorna todos os dados do formulário
         //dd($request->all());
-        
+
         // retorna somente os dados desejados
         //dd($request->only('nome', 'placa'));
-        
+
         // retorna todos os campos, exceto o desejado
         //dd($request->except('_token'));
 
@@ -73,7 +77,7 @@ class CarrosController extends Controller
 
         // retorna se a requisição é do tipo desejado
         //dd($request->isMethod('post'));
-        
+
         /*$carro = new Carro();
         $carro->nome = $request->input('nome');
         $carro->placa = $request->input('placa');
@@ -81,14 +85,8 @@ class CarrosController extends Controller
 
         $dadosForm = $this->request->all();
 
-        // Regras de validação
-        $rules = [
-            'nome' => 'required|min:3|max:100',
-            'placa' => 'required|min:7|max:7'
-        ];
-
         // Aplica as regras de validação aos devidos campos
-        $validator = $this->validator->make($dadosForm, $rules);
+        $validator = $this->validator->make($dadosForm, Carro::$rules);
 
         // verifica se ocorreu algum erro
         if ($validator->fails()) {
@@ -99,7 +97,7 @@ class CarrosController extends Controller
 
         // redireciona para alguma url
         //return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
-        
+
         return redirect('carros');
     }
 
@@ -107,14 +105,21 @@ class CarrosController extends Controller
     {
         $carro = $this->carro->find($id);
 
+        $marcas = MarcasCarro::lists('marca', 'id');
+
 
         // Passado dados para a view
-        return view('painel.carros.create-edit', compact('carro'));
+        return view('painel.carros.create-edit', compact('carro', 'marcas'));
     }
 
     public function postEditar($idCarro)
     {
         $dadosForm = $this->request->except('_token');
+
+        $rulesEdit = [
+            'nome' => 'required|min:3|max:150',
+            'placa' => "required|min:7|max:7|unique:carros,placa,$idCarro"
+        ];
 
         // atualiza determinado dado do banco
         $this->carro->where('id', $idCarro)->update($dadosForm);
@@ -140,7 +145,7 @@ class CarrosController extends Controller
 
     /**
      * Método chamado quando nenhum outro método corresponde ao chamado na rota
-     * @param  array  $params [description]
+     * @param  array $params [description]
      * @return [type]         [description]
      */
     public function missingMethod($params = array())

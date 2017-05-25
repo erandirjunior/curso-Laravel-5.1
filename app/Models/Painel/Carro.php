@@ -11,4 +11,9 @@ class Carro extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+    static $rules = [
+        'nome' => 'required|min:3|max:150',
+        'placa' => 'required|min:7|max:7|unique:carros'
+    ];
 }
