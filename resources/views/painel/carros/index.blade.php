@@ -7,25 +7,39 @@ rma a qual arquivo deseja utilizar as seções -->
     Conteúdo do slide
 @endsection
 
-<p>{!! HTML::link('carros/adicionar', 'Cadastrar Novo Carro')!!}</p>
-
 <!-- Conteúdo no qual deseja incluir no arquivo pai-->
 @section('content')
+
+    <p>{!! HTML::link('carros/adicionar', 'Cadastrar Novo Carro', ['class' => 'btn btn-success'])!!}</p>
+
     <h1>Listagem dos carros do painel </h1>
 
     Total = ({{$carros->total()}}) |  Por página = ({{$carros->count()}})
 
     {!!'<h2>Olá, eu sou um h2</h2>'!!}
 
-    {{-- Listagem dos carros --}}
-    @forelse ($carros as $carro)
-        <p><!-- Utiliza a variavel passado para view -->
-        <b>Nome:</b> {{$carro->nome}} - ({{$carro->placa}}) {!! HTML::link("carros/editar/{$carro->id}", 'Editar') !!} {!! HTML::link("carros/deletar/{$carro->id}", 'Deletar') !!}
-        </p>
-        
-    @empty
-        <p>Nenhum carro cadastrado!</p>
-    @endforelse
+    <table class="table table-bordered">
+        <tr>
+            <th>Nome</th>
+            <th>Placa</th>
+            <th width="150">Ações</th>
+        </tr>
+
+        {{-- Listagem dos carros --}}
+        @forelse ($carros as $carro)
+            <tr>
+                <td>{{$carro->nome}}</td><!-- Utiliza a variavel passado para view -->
+                <td>{{$carro->placa}}</td>
+                <td>
+                    {!! HTML::link("carros/editar/{$carro->id}", 'Editar') !!} {!! HTML::link("carros/deletar/{$carro->id}", 'Deletar') !!}
+                </td>
+            </tr>
+
+
+        @empty
+            <p>Nenhum carro cadastrado!</p>
+        @endforelse
+    </table>
 
     {!! $carros->render()!!}
 

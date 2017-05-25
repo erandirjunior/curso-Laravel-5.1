@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
 </head>
 <body>
-
+<div class="container">
     @section('slide')
         slide
     @show <!-- Exibe -->
-    
+
     <!-- é usada para exibir o conteúdo de uma determinada seção -->
     @yield('content')
-
+</div>
 </body>
 </html>
