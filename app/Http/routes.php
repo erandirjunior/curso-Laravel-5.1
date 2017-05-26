@@ -155,3 +155,9 @@ Route::get('query-builder', function () {
     //dd(DB::table('carros')->where('id', 2)->update(['nome' => 'Renault 2017']));
     dd(DB::table('carros')->where('id', 2)->delete());
 });
+
+// ORM Eloquent
+Route::get('eloquent', function () {
+    //dd(\App\Models\Painel\Carro::get());
+    dd(\App\Models\Painel\Carro::first());
+});
