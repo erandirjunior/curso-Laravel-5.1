@@ -127,7 +127,28 @@ Route::get('services', function() {
     return '123';
 });
 
-class LogSistem
+/*class LogSistem
 {
 
-}
+}*/
+
+// Query Builder DB
+Route::get('query-builder', function () {
+    //dd(DB::table('carros')->get());
+    //dd(DB::table('carros')->first());
+    //dd(DB::table('carros')->select('id', 'nome', 'placa')->first());
+    //dd(DB::table('carros')->select('id', 'nome', 'placa')->get());
+    //dd(DB::table('carros')->select('id', 'nome as nome-carro-luxo', 'placa')->get());
+    //$carros = DB::table('carros')->select('id', 'nome as nomeCarroLuxo', 'placa')->get();
+    //return $carros[0]->nomeCarroLuxo;
+    //dd(DB::table('carros')->where('id', 1)->get());
+    //dd(DB::table('carros')->where('id', '<>', 1)->orWhere('id', 1)->get());
+    //dd(DB::table('carros')->lists('nome', 'id'));
+    //dd(DB::table('carros')->count());
+    //dd(DB::table('carros')->where('id', 1)->count());
+    //dd(DB::table('carros')->max('nome'));
+    //dd(DB::table('carros')->avg('placa'));
+    //dd(DB::table('carros')->join('marcas_carro', 'marcas_carro.id','=', 'carros.id_marca')->select('carros.nome', 'carros.placa', 'marcas_carro.marca')->where('marcas_carro.marca', 'BMW')->get());
+    //dd(DB::table('carros')->orderBy('nome', 'desc')->get());
+    dd(DB::table('carros')->take(1)->get());
+});
