@@ -21,8 +21,10 @@ class CarrosController extends Controller
 
     /**
      * CarrosController constructor.
-     * @param $carro
-     * @param $request
+     *
+     * @param Carro $carro
+     * @param Request $request
+     * @param \Illuminate\Validation\Factory $validator
      */
     public function __construct(Carro $carro, Request $request, \Illuminate\Validation\Factory $validator)
     {
@@ -31,6 +33,11 @@ class CarrosController extends Controller
         $this->validator = $validator;
     }
 
+    /**
+     * Mostra os dados devidamente páginados.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex()
     {
         // Jeito simplificado de obter dados
@@ -47,6 +54,11 @@ class CarrosController extends Controller
         return view('painel.carros.index', compact('carros', 'titulo'));
     }
 
+    /**
+     * Formulário de cadastro de carros.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAdicionar()
     {
         $titulo = 'Adicionar novo carro';
@@ -58,6 +70,13 @@ class CarrosController extends Controller
         return view('painel.carros.create-edit', compact('titulo', 'marcas'));
     }
 
+    /**
+     * Faz o cadastro de carros.
+     * Verifica se existe algum arquivo enviado.
+     * Valida os campos.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postAdicionar()
     {
         /*
@@ -112,6 +131,12 @@ class CarrosController extends Controller
         return redirect('carros');
     }
 
+    /**
+     * Formulário de edição de dados.
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEditar($id)
     {
         $carro = $this->carro->find($id);
@@ -123,6 +148,13 @@ class CarrosController extends Controller
         return view('painel.carros.create-edit', compact('carro', 'marcas'));
     }
 
+    /**
+     * Faz a edição de carros.
+     * Valida os campos.
+     *
+     * @param $idCarro
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postEditar($idCarro)
     {
         $dadosForm = $this->request->except('_token');
@@ -138,6 +170,13 @@ class CarrosController extends Controller
         return redirect('carros');
     }
 
+    /**
+     * Deleta um carro.
+     * Exclui o carro pelo id.
+     *
+     * @param $idCarro
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function getDeletar($idCarro)
     {
         // busca o dado no banco passado determinado valor
@@ -149,21 +188,32 @@ class CarrosController extends Controller
         return redirect('carros');
     }
 
+    /**
+     * Lista os carros de luxo.
+     *
+     * @return string
+     */
     public function getListaCarrosLuxo()
     {
         return 'Listando os carros de luxo';
     }
 
     /**
-     * Método chamado quando nenhum outro método corresponde ao chamado na rota
-     * @param  array $params [description]
-     * @return [type]         [description]
+     * Mátodo invocado caso não exista uma utl válida.
+     *
+     * @param array $params
+     * @return string
      */
     public function missingMethod($params = array())
     {
         return 'ERRO 404, página não encontrada!';
     }
 
+    /**
+     * Utilizado para realizar testes de Cache e encriptação.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getListarCarrosCache()
     {
         // chave, valor e tempo de disponibilidade
