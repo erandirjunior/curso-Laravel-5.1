@@ -150,5 +150,8 @@ Route::get('query-builder', function () {
     //dd(DB::table('carros')->avg('placa'));
     //dd(DB::table('carros')->join('marcas_carro', 'marcas_carro.id','=', 'carros.id_marca')->select('carros.nome', 'carros.placa', 'marcas_carro.marca')->where('marcas_carro.marca', 'BMW')->get());
     //dd(DB::table('carros')->orderBy('nome', 'desc')->get());
-    dd(DB::table('carros')->take(1)->get());
+    //dd(DB::table('carros')->take(1)->get());
+    //dd(DB::table('carros')->insert(['nome' => 'Renault', 'placa' => '874569', 'id_marca' => 3]));
+    //dd(DB::table('carros')->where('id', 2)->update(['nome' => 'Renault 2017']));
+    dd(DB::table('carros')->where('id', 2)->delete());
 });
