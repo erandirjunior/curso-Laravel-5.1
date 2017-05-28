@@ -173,3 +173,12 @@ Route::get('relacionamentos', function () {
     //dd(\App\Models\Painel\Carro::find('1')->getMarca()->get()->toArray());
     dd(\App\Models\Painel\Carro::find('1')->getCores()->get()->toArray());
 });
+
+// Mutators
+Route::get('mutators', function () {
+   $carros = \App\Models\Painel\Carro::get();
+
+   foreach ($carros as $carro) {
+       echo "{$carro->nome} <br /> {$carro->placa}";
+   }
+});

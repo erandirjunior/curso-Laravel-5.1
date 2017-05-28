@@ -27,6 +27,16 @@ class Carro extends Model
         'placa' => 'required|min:7|max:7|unique:carros'
     ];
 
+    public function getNomeAttribute($nome)
+    {
+        return strtoupper($nome);
+    }
+
+    public function getPlacaAttribute($placa)
+    {
+        return strtolower($placa);
+    }
+
     /**
      * Relacionamento de um para um
      *
@@ -49,6 +59,7 @@ class Carro extends Model
 
     /**
      * Relacionamento muitos para muitos
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function getCores()
