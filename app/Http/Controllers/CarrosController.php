@@ -50,8 +50,10 @@ class CarrosController extends Controller
 
         $titulo = "Listagem dos carros";
 
+        $marcas = MarcasCarro::lists('marca', 'id');
+
         // Passado dados para a view
-        return view('painel.carros.index', compact('carros', 'titulo'));
+        return view('painel.carros.index', compact('carros', 'titulo', 'marcas'));
     }
 
     /**
@@ -129,6 +131,33 @@ class CarrosController extends Controller
         //return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
 
         return redirect('carros');
+    }
+
+    public function postAdicionarViaAjax()
+    {
+
+
+        $dadosForm = $this->request->all();
+
+        // Aplica as regras de validação aos devidos campos
+        $validator = $this->validator->make($dadosForm, Carro::$rules);
+
+        // verifica se ocorreu algum erro
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            $displayErrors = '';
+
+            foreach ($messages->all("<p>:message</p>") as $error) {
+                $displayErrors .= $error;
+            }
+
+            return $displayErrors;
+        }
+
+        $this->carro->create($dadosForm);
+
+        return 1;
     }
 
     /**
