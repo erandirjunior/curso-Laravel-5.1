@@ -166,3 +166,10 @@ Route::get('collections', function () {
     //dd(\App\Models\Painel\Carro::get()->toArray());
     dd(\App\Models\Painel\Carro::get()->toJson());
 });
+
+// Relacionamentos
+Route::get('relacionamentos', function () {
+    //dd(\App\Models\Painel\Carro::find('1')->getChassi()->get()->toArray());
+    //dd(\App\Models\Painel\Carro::find('1')->getMarca()->get()->toArray());
+    dd(\App\Models\Painel\Carro::find('1')->getCores()->get()->toArray());
+});

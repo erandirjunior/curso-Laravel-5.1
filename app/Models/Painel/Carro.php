@@ -26,4 +26,33 @@ class Carro extends Model
         'nome' => 'required|min:3|max:150',
         'placa' => 'required|min:7|max:7|unique:carros'
     ];
+
+    /**
+     * Relacionamento de um para um
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getChassi()
+    {
+        return $this->hasOne('App\Models\Painel\CarrosChassi', 'id_carro');
+    }
+
+    /**
+     * Relacionamento um para muitos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getMarca()
+    {
+        return $this->hasMany('App\Models\Painel\MarcasCarro', 'id', 'id_marca');
+    }
+
+    /**
+     * Relacionamento muitos para muitos
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function getCores()
+    {
+        return $this->belongsToMany('App\Models\Painel\CoresCarro', 'cores_carros', 'id_cor', 'id_carro');
+    }
 }
