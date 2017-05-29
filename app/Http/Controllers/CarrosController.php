@@ -56,6 +56,18 @@ class CarrosController extends Controller
         return view('painel.carros.index', compact('carros', 'titulo', 'marcas'));
     }
 
+
+    public function getListarViaAjax()
+    {
+        return view('painel.carros.lista-via-ajax');
+    }
+
+    public function getCarrosAjax()
+    {
+        sleep(3);
+        return $this->carro->get()->toJson();
+    }
+
     /**
      * Formulário de cadastro de carros.
      *

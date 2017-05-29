@@ -16,6 +16,8 @@ rma a qual arquivo deseja utilizar as seções -->
         Cadastrar Carro Via Ajax
     </button>
 
+    {!!HTML::link('carros/listar-via-ajax', 'Listar Carros Via Ajax', ['class' => 'btn btn-danger btn-lg', 'target' => '_blank'])!!}
+
     <h1>Listagem dos carros do painel </h1>
 
     Total = ({{$carros->total()}}) |  Por página = ({{$carros->count()}})

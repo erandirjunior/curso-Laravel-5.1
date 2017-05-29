@@ -16,6 +16,10 @@ class Carro extends Model
      */
     protected $dates = ['deleted_at'];
 
+    protected $visible = ['nome', 'placa'];
+
+    //protected $hidden = ['id', 'placa'];
+
     /**
      * Indica quais campos não podem ser preenchidos manualmente pelo usuário
      * @var array
