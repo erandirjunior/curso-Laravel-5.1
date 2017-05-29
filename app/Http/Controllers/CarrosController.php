@@ -34,7 +34,7 @@ class CarrosController extends Controller
     }
 
     /**
-     * Mostra os dados devidamente páginados.
+     * Mostra todos os dados devidamente páginados.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,12 +56,22 @@ class CarrosController extends Controller
         return view('painel.carros.index', compact('carros', 'titulo', 'marcas'));
     }
 
-
+    /**
+     * Retorna a view de listagem via ajax.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getListarViaAjax()
     {
         return view('painel.carros.lista-via-ajax');
     }
 
+    /**
+     * Retorna todos os carros, em formato json.
+     * Aplica um tempo de espera.
+     *
+     * @return mixed
+     */
     public function getCarrosAjax()
     {
         sleep(3);
@@ -87,7 +97,7 @@ class CarrosController extends Controller
     /**
      * Faz o cadastro de carros.
      * Verifica se existe algum arquivo enviado.
-     * Valida os campos.
+     * Valida os dados.
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -145,10 +155,15 @@ class CarrosController extends Controller
         return redirect('carros');
     }
 
+    /**
+     * Faz o cadastro de carros por ajax.
+     * Valida os dados.
+     * Retorna possíveis erros.
+     *
+     * @return int|string
+     */
     public function postAdicionarViaAjax()
     {
-
-
         $dadosForm = $this->request->all();
 
         // Aplica as regras de validação aos devidos campos
@@ -212,8 +227,8 @@ class CarrosController extends Controller
     }
 
     /**
-     * Deleta um carro.
-     * Exclui o carro pelo id.
+     * Remove determinado carro.
+     * Remove determinado carro pelo id.
      *
      * @param $idCarro
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -240,7 +255,7 @@ class CarrosController extends Controller
     }
 
     /**
-     * Mátodo invocado caso não exista uma utl válida.
+     * Mátodo invocado caso não exista uma rota válida.
      *
      * @param array $params
      * @return string
