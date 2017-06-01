@@ -82,15 +82,14 @@ Route::get('login', function() {
     return 'Formulário de login';
 });*/
 
-Route::get('produtos', 'ProdutoController@index');
+/*Route::get('produtos', 'ProdutoController@index');
 Route::get('produto/create', 'ProdutoController@create');
 Route::post('produto/create', 'ProdutoController@store');
 Route::get('produto/{idProd}', 'ProdutoController@show');
-/*Route::get('produto/{idProd}/{idCod}', 'ProdutoController@showTwo');*/
 Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
 
 
-Route::controller('/carros', 'CarrosController');
+Route::controller('/carros', 'CarrosController');*/
 
 Route::controller('/users', 'UserController');
 
@@ -182,3 +181,22 @@ Route::get('mutators', function () {
        echo "{$carro->nome} <br /> {$carro->placa}";
    }
 });
+
+Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
+    Route::get('produtos', 'ProdutoController@index');
+    Route::get('produto/create', 'ProdutoController@create');
+    Route::post('produto/create', 'ProdutoController@store');
+    Route::get('produto/{idProd}', 'ProdutoController@show');
+    Route::get('produto/edit/{idProd}', 'ProdutoController@edit');
+
+
+    Route::controller('/carros', 'CarrosController');
+});
+
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
