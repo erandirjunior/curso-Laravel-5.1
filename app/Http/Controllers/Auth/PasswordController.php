@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller
 {
+    protected $redirectTo = '/painel/carros';
+
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
