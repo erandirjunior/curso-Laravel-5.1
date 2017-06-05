@@ -2,7 +2,10 @@
 
 @section('form')
 
-    <form class="form-padrao" method="post" action="/login">
+    <form class="form-padrao form" method="post" action="/login">
+
+        <div class="alert alert-danger" role="alert" style="display: none">Login Inválido</div>
+
         {!! csrf_field() !!}
 
         <div class="form-group">
@@ -15,8 +18,53 @@
 
         <a href="" class="recuperar-senha" data-toggle="modal" data-target="#recuperarSenha">Esqueceu a Senha?</a>
 
-        <input type="submit" name="btn-enviar" value="Entrar" class="btn-padrao">
+        <input type="submit" name="btn-enviar" value="Entrar" class="btn-padrao btn-enviar">
 
     </form>
+
+@endsection
+
+@section('scripts')
+
+    <script>
+
+        $(function () {
+            jQuery('form.form').submit(function () {
+
+                jQuery(".alert-danger").hide();
+
+                var dadosForm = jQuery(this).serialize();
+
+                jQuery.ajax({
+                    url: "/login",
+                    type: "POST",
+                    data: dadosForm,
+                    beforeSend: iniciaPreloader()
+                }).done(function (data) {
+                    finalizaPreloader();
+
+                    if (data == "1") {
+                        location.href="/painel";
+                    } else {
+                        jQuery(".alert-danger").show();
+                    }
+                }).fail(function () {
+                    finalizaPreloader();
+                    alert('Falha ao enviar dados.');
+                });
+
+                return false;
+            });
+        });
+
+        function iniciaPreloader() {
+            jQuery(".btn-enviar").attr("disable");
+        }
+
+        function finalizaPreloader() {
+            jQuery(".btn-enviar").removeAttr("disable");
+        }
+
+    </script>
 
 @endsection

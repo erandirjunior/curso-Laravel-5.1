@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{url('assets/painel/css/especializati.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('assets/painel/css/especializati-responsivo.css')}}">
+    <link rel="icon" type="image/png" href="{{url('assets/imgs/favicon.png')}}">
 
     <!--JQuery-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -24,7 +25,7 @@
 
 <section class="login">
     <div class="topo-login">
-        <h1 class="titulo-login">Login - Curso de Front End</h1>
+        <h1 class="titulo-login">{{$titulo or 'Login | Curso de Laravel 5.1'}}</h1>
     </div>
 
     <div class="conteudo-login">
@@ -62,5 +63,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+@yield('scripts')
 </body>
 </html>
