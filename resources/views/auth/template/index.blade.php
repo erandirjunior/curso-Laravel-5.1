@@ -30,7 +30,7 @@
 
     <div class="conteudo-login">
 
-    @yield('form')
+        @yield('form')
 
     </div>
 </section>
@@ -63,6 +63,48 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+
+    $(function () {
+        jQuery('form.form').submit(function () {
+
+            jQuery(".alert-danger").hide();
+
+            var dadosForm = jQuery(this).serialize();
+
+            jQuery.ajax({
+                url: jQuery(this).attr('send'),
+                type: "POST",
+                data: dadosForm,
+                beforeSend: iniciaPreloader()
+            }).done(function (data) {
+                finalizaPreloader();
+
+                if (data == "1") {
+                    location.href = "/painel";
+                } else {
+                    jQuery(".alert-danger").show();
+                    jQuery(".alert-danger").html(data);
+                }
+            }).fail(function () {
+                finalizaPreloader();
+                alert('Falha ao enviar dados.');
+            });
+
+            return false;
+        });
+    });
+
+    function iniciaPreloader() {
+        jQuery(".btn-enviar").attr("disable");
+    }
+
+    function finalizaPreloader() {
+        jQuery(".btn-enviar").removeAttr("disable");
+    }
+
+</script>
 
 @yield('scripts')
 </body>
