@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Painel;
 
 use App\Models\Painel\MarcasCarro;
 use Illuminate\Http\Request;
@@ -22,8 +22,8 @@ class CarrosController extends Controller
     /**
      * CarrosController constructor.
      *
-     * @param Carro $carro
-     * @param Request $request
+     * @param Carro                          $carro
+     * @param Request                        $request
      * @param \Illuminate\Validation\Factory $validator
      */
     public function __construct(Carro $carro, Request $request, \Illuminate\Validation\Factory $validator)
@@ -40,12 +40,6 @@ class CarrosController extends Controller
      */
     public function getIndex()
     {
-        // Jeito simplificado de obter dados
-        /*$carros = DB::table('carros')->get();*/
-
-        // Obtendo dados por uma model
-        //$carros = Carro::get();
-
         $carros = $this->carro->paginate(2);
 
         $titulo = "Listagem dos carros";
@@ -103,30 +97,6 @@ class CarrosController extends Controller
      */
     public function postAdicionar()
     {
-        /*
-          // retorna um dado especifico do formulário
-         dd($request->input('nome'));
-
-          // retorna todos os dados do formulário
-         dd($request->all());
-
-          // retorna somente os dados desejados
-         dd($request->only('nome', 'placa'));
-
-          // retorna todos os campos, exceto o desejado
-         dd($request->except('_token'));
-
-          // retorna o tipo de requisição
-         dd($request->method());
-
-          // retorna se a requisição é do tipo desejado
-         dd($request->isMethod('post'));
-
-         $carro = new Carro();
-         $carro->nome = $request->input('nome');
-         $carro->placa = $request->input('placa');
-         $carro->save();*/
-
         $dadosForm = $this->request->except('file');
 
         // Aplica as regras de validação aos devidos campos
@@ -148,9 +118,6 @@ class CarrosController extends Controller
         }
 
         $this->carro->create($dadosForm);
-
-        // redireciona para alguma url
-        //return redirect('carros/adicionar')->withInput(); // retorna os dados antigos
 
         return redirect('carros');
     }
@@ -191,6 +158,7 @@ class CarrosController extends Controller
      * Formulário de edição de dados.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getEditar($id)
@@ -198,7 +166,6 @@ class CarrosController extends Controller
         $carro = $this->carro->find($id);
 
         $marcas = MarcasCarro::lists('marca', 'id');
-
 
         // Passado dados para a view
         return view('painel.carros.create-edit', compact('carro', 'marcas'));
@@ -209,6 +176,7 @@ class CarrosController extends Controller
      * Valida os campos.
      *
      * @param $idCarro
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postEditar($idCarro)
@@ -231,6 +199,7 @@ class CarrosController extends Controller
      * Remove determinado carro pelo id.
      *
      * @param $idCarro
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function getDeletar($idCarro)
@@ -246,7 +215,6 @@ class CarrosController extends Controller
 
     /**
      * Lista os carros de luxo.
-     *
      * @return string
      */
     public function getListaCarrosLuxo()
@@ -258,6 +226,7 @@ class CarrosController extends Controller
      * Mátodo invocado caso não exista uma rota válida.
      *
      * @param array $params
+     *
      * @return string
      */
     public function missingMethod($params = array())
@@ -272,16 +241,6 @@ class CarrosController extends Controller
      */
     public function getListarCarrosCache()
     {
-        // chave, valor e tempo de disponibilidade
-        /*Cache::put('carros', Carro::all(), 3);
-
-        if (Cache::has('carros')) {
-            return 'carro já está no cache';
-        }
-
-        // obter valor do cache
-        $carros = Cache::get('carros', 'Não existe carros');*/
-
         // busca determinado valor, caso seja vazio, executa a função
         $carros = Cache::remember('carros', 3, function () {
             return $this->carro->all();
