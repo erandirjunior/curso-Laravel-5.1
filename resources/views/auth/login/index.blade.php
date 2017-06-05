@@ -47,6 +47,7 @@
                         location.href="/painel";
                     } else {
                         jQuery(".alert-danger").show();
+                        jQuery(".alert-danger").html(data);
                     }
                 }).fail(function () {
                     finalizaPreloader();
