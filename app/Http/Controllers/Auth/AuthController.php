@@ -11,9 +11,9 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 class AuthController extends Controller
 {
 
-    protected $redirectPath = '/painel/carros/';
+    protected $redirectPath = '/painel';
 
-    protected $loginPath = '/auth/login';
+    protected $loginPath = '/login';
 
     /*
     |--------------------------------------------------------------------------
