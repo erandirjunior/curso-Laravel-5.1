@@ -46,15 +46,22 @@
                 <h4 class="modal-title" id="myModalLabel">Recuperar Senha</h4>
             </div>
             <div class="modal-body">
-                <form class="form-padrao">
+                <form class="form-padrao form-recuperar" method="POST">
+                    <div class="alert alert-success success-msg" role="alert" style="display: none"></div>
+
+                    <div class="alert alert-danger alert-recuperar" role="alert" style="display: none"></div>
+
+                    {!! csrf_field() !!}
+
                     <div class="form-group">
                         <input type="text" name="email" class="form-control" placeholder="E-mail">
                     </div>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Recuperar</button>
+                <button type="submit" class="btn btn-primary btn-enviar-senha">Recuperar</button>
+                </form>
             </div>
         </div>
     </div>
@@ -69,7 +76,7 @@
     $(function () {
         jQuery('form.form').submit(function () {
 
-            jQuery(".alert-danger").hide();
+            jQuery(".alert-msg").hide();
 
             var dadosForm = jQuery(this).serialize();
 
@@ -84,8 +91,8 @@
                 if (data == "1") {
                     location.href = "/painel";
                 } else {
-                    jQuery(".alert-danger").show();
-                    jQuery(".alert-danger").html(data);
+                    jQuery(".alert-msg").show();
+                    jQuery(".alert-msg").html(data);
                 }
             }).fail(function () {
                 finalizaPreloader();
@@ -102,6 +109,50 @@
 
     function finalizaPreloader() {
         jQuery(".btn-enviar").removeAttr("disable");
+    }
+
+</script>
+
+<script>
+
+    $(function () {
+        jQuery('form.form-recuperar').submit(function () {
+
+            jQuery(".alert-recuperar").hide();
+            jQuery(".success-msg").hide();
+
+            var dadosForm = jQuery(this).serialize();
+
+            jQuery.ajax({
+                url: "/recuperar-senha",
+                type: "POST",
+                data: dadosForm,
+                beforeSend: iniciaPreloaderRecuperarSenha()
+            }).done(function (data) {
+                finalizaPreloaderRecuperarSenha();
+
+                if (data == "1") {
+                    jQuery(".success-msg").show();
+                    jQuery(".success-msg").html("Pedido de recuperação de senha enviado para o seu e-mail.");
+                } else {
+                    jQuery(".alert-recuperar").show();
+                    jQuery(".alert-recuperar").html(data);
+                }
+            }).fail(function () {
+                finalizaPreloaderRecuperarSenha();
+                alert('Falha ao enviar dados.');
+            });
+
+            return false;
+        });
+    });
+
+    function iniciaPreloaderRecuperarSenha() {
+        jQuery(".btn-enviar-senha").attr("disable");
+    }
+
+    function finalizaPreloaderRecuperarSenha() {
+        jQuery(".btn-enviar-senha").removeAttr("disable");
     }
 
 </script>

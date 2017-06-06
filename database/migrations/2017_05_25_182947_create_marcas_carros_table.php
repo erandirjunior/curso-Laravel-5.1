@@ -26,6 +26,6 @@ class CreateMarcasCarrosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('marcas_carros');
+        Schema::drop('marcas_carro');
     }
 }

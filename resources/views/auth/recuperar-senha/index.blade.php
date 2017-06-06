@@ -1,9 +1,9 @@
 @extends('auth.template.index')
 
 @section('form')
-<form class="form-padrao form" method="post" action="/resetar-senha">
+<form class="form-padrao form" method="post" action="/resetar-senha" send="/resetar-senha">
 
-    <div class="alert alert-danger" role="alert" style="display: none"></div>
+    <div class="alert alert-danger alert-msg" role="alert" style="display: none"></div>
 
     {!! csrf_field() !!}
     <input type="hidden" name="token" value="{{ $token }}">
@@ -20,7 +20,7 @@
         <input type="password" name="password_confirmation" class="form-control" placeholder="Senha">
     </div>
 
-    <input type="submit" name="btn-enviar" value="Recuperar Senha" class="btn-padrao btn-enviar">
+    <input type="submit" name="btn-enviar" value="Atualizar Senha" class="btn-padrao btn-enviar">
 
 </form>
 

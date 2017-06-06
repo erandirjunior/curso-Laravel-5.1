@@ -4,7 +4,7 @@
 
     <form class="form-padrao form" method="post" send="/login" action="/login">
 
-        <div class="alert alert-danger" role="alert" style="display: none"></div>
+        <div class="alert alert-danger alert-msg" role="alert" style="display: none"></div>
 
         {!! csrf_field() !!}
 

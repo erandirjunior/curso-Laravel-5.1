@@ -28,12 +28,12 @@ Route::get('logout', 'Auth\AuthController@getLogout');
 Route::post('auth/register', 'Auth\AuthController@postRegister');*/
 
 // Password reset link request routes...
-//Route::get('recuperar-senha', 'Auth\PasswordController@getEmail');
-//Route::post('recuperar-senha', 'Auth\PasswordController@postEmail');
+Route::get('recuperar-senha', 'Auth\PasswordController@getEmail');
+Route::post('recuperar-senha', 'Auth\PasswordController@postEmail');
 
 // Password reset routes...
 Route::get('resetar-senha/{token}', 'Auth\PasswordController@getReset');
-Route::post('resetar-senha', 'Auth\PasswordController@postReset');
+Route::post('resetar-senha/', 'Auth\PasswordController@postReset');
 
 // Site routes
 Route::controller('/', 'Site\HomeController');

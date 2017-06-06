@@ -9,6 +9,13 @@ class PasswordController extends Controller
 {
     protected $redirectTo = '/painel';
 
+    /**
+     * Mensagem para assunto de recuperação de senha.
+     *
+     * @var string assunto de recuperação de senha.
+     */
+    protected $subject = 'Link de recuperação de login';
+
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
