@@ -41,32 +41,10 @@
 
     <div class="clear"></div>
 
+    <!--Open menu-->
 
-    <div class="menu-painel col-md-2">
-        <ul class="menu-painel-ul">
-            <li>
-                <a href=""><i class="fa fa-tachometer"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-user-secret"></i> Meu Perfil</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-user"></i> Alunos</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-user-times"></i> Pais</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-users"></i> Usuários</a>
-            </li>
-            <li>
-                <a href="?pag=produtos"><i class="fa fa-diamond"></i> Produtos</a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-sign-out"></i> Sair</a>
-            </li>
-        </ul>
-    </div>
+    @include('painel.includes.menu')
+
     <!--End menu-->
 
     <section class="conteudo col-md-10">
