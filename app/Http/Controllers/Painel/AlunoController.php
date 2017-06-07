@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Models\Painel\Aluno;
+use App\Models\Painel\Matricula;
+use App\Models\Painel\Turma;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -25,7 +27,10 @@ class AlunoController extends Controller
     public function getIndex()
     {
         $alunos = $this->aluno->paginate(10);
-        return view('painel.alunos.index', compact('alunos'));
+
+        $turmas = Turma::lists('nome', 'id');
+
+        return view('painel.alunos.index', compact('alunos', 'turmas'));
     }
 
     public function postAdicionarAluno()
@@ -46,7 +51,11 @@ class AlunoController extends Controller
             return $displayErrors;
         }
 
-        $this->aluno->create($dadosForm);
+        $aluno = $this->aluno->create($dadosForm);
+
+        $matricula = ['id_aluno' => $aluno->id, 'numero' => uniqid($aluno->id)];
+
+        Matricula::create($matricula);
 
         return 1;
     }

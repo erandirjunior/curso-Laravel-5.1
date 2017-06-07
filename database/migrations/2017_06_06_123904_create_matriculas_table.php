@@ -14,6 +14,8 @@ class CreateMatriculasTable extends Migration
     {
         Schema::create('matriculas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_aluno')->unsigned();
+            $table->foreign('id_aluno')->references('id')->on('alunos')->onDelete('cascade');
             $table->integer('numero')->unique();
             $table->timestamps();
         });

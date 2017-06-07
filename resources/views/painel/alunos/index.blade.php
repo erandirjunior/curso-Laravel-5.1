@@ -78,6 +78,10 @@
                                    placeholder="Data de Nascimento do Aluno">
                         </div>
 
+                        <div class="form-group">
+                            {!! Form::select('id_turma', $turmas, null, ['class' => 'form-control']) !!}
+                        </div>
+
                         <div class="preloader" style="display: none">Enviando os dados, por favor aguarde...</div>
 
                 </div>
