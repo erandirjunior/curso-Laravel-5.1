@@ -14,7 +14,7 @@
     {!!HTML::style('assets/painel/css/especializati-responsivo.css')!!}
 
     <!--JQuery-->
-    {!!HTML::script('assets/js/jquery.js')!!}
+    {!!HTML::script('assets/js/jquery-2.1.4.min.js')!!}
 </head>
 <body class="bg-padrao">
 
@@ -55,8 +55,31 @@
     <!--End Conteúdo-->
 </section>
 
+<!-- Modal Para Deletar Aluno -->
+<div class="modal fade" id="modalConfirmacaoDeletar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-padrao5">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Deletar</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente deletar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Final Do Modal Para Deletar Aluno -->
 
 <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{{--
 {!!HTML::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')!!}
+--}}
 </body>
 </html>

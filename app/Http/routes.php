@@ -13,7 +13,7 @@
 
 // Painel routes
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
-    Route::controller('/carros', 'Painel\CarrosController');
+    Route::controller('alunos', 'Painel\AlunoController');
 
     Route::controller('/', 'Painel\PainelController');
 });
