@@ -9,7 +9,8 @@
     <div class="col-md-12">
 
         <form class="form-padrao form-inline padding-20">
-            <a href="" class="btn-cadastrar" data-toggle="modal" data-target="#modalGestao"><i class="fa fa-plus-circle"></i> Cadastrar</a>
+            <a href="" class="btn-cadastrar" data-toggle="modal" data-target="#modalGestao"><i
+                        class="fa fa-plus-circle"></i> Cadastrar</a>
             <input type="text" placeholder="Pesquisa">
         </form>
     </div>
@@ -37,7 +38,9 @@
                 </td>
             </tr>
         @empty
-            <tr><td colspan="3">Nenhum aluno cadastrado.</td></tr>
+            <tr>
+                <td colspan="3">Nenhum aluno cadastrado.</td>
+            </tr>
         @endforelse
     </table>
 
@@ -57,8 +60,12 @@
                                 aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Gestão de aluno</h4>
                 </div>
+
+                <div class="alert alert-warning msg-war" role="alert" style="display: none"></div>
+                <div class="alert alert-success msg-suc" role="alert" style="display: none"></div>
+
                 <div class="modal-body">
-                    <form class="form-padrao form">
+                    <form class="form-padrao form-gestao" action="/painel/alunos/adicionar-aluno" send="/painel/alunos/adicionar-aluno">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <input type="text" name="nome" class="form-control" placeholder="Nome do Aluno">
@@ -67,13 +74,17 @@
                             <input type="text" name="telefone" class="form-control" placeholder="Telefone do Aluno">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="data_nascimento" class="form-control" placeholder="Data de Nascimento do Aluno">
+                            <input type="text" name="data_nascimento" class="form-control"
+                                   placeholder="Data de Nascimento do Aluno">
                         </div>
-                    </form>
+
+                        <div class="preloader" style="display: none">Enviando os dados, por favor aguarde...</div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
                 </div>
             </div>
         </div>

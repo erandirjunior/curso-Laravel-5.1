@@ -5,15 +5,15 @@
     <title>{{$titulo or 'Painel | Curso de Laravel 5.1'}}</title>
 
     <!-- Latest compiled and minified CSS -->
-    {!!HTML::style('assets/css/bootstrap.min.css')!!}
+{!!HTML::style('assets/css/bootstrap.min.css')!!}
 
-    <!-- Optional theme -->
-    {!!HTML::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')!!}
-    {!!HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')!!}
-    {!!HTML::style('assets/painel/css/especializati.css')!!}
-    {!!HTML::style('assets/painel/css/especializati-responsivo.css')!!}
+<!-- Optional theme -->
+{!!HTML::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')!!}
+{!!HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')!!}
+{!!HTML::style('assets/painel/css/especializati.css')!!}
+{!!HTML::style('assets/painel/css/especializati-responsivo.css')!!}
 
-    <!--JQuery-->
+<!--JQuery-->
     {!!HTML::script('assets/js/jquery-2.1.4.min.js')!!}
 </head>
 <body class="bg-padrao">
@@ -43,9 +43,9 @@
 
     <!--Open menu-->
 
-    @include('painel.includes.menu')
+@include('painel.includes.menu')
 
-    <!--End menu-->
+<!--End menu-->
 
     <section class="conteudo col-md-10">
         <div class="cont">
@@ -78,8 +78,62 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-{{--
-{!!HTML::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')!!}
---}}
+
+@yield('scripts')
+
+<script>
+
+    $(function(){
+        jQuery("form.form-gestao").submit(function(){
+            jQuery(".msg-war").hide();
+            jQuery(".msg-suc").hide();
+
+            var dadosForm = jQuery(this).serialize();
+
+            jQuery.ajax({
+                url: jQuery(this).attr("send"),
+                data: dadosForm,
+                type: "POST",
+                beforeSend: iniciaPreloader()
+            }).done(function(data){
+                finalizaPreloader();
+
+                if( data == "1" ){
+                    jQuery(".msg-suc").html("Sucesso ao Salvar!");
+                    jQuery(".msg-suc").show();
+
+                    setTimeout("jQuery('.msg-suc').hide();jQuery('#modalGestao').modal('hide');location.reload();", 4500);
+                }else{
+                    jQuery(".msg-war").html(data);
+                    jQuery(".msg-war").show();
+
+                    setTimeout("jQuery('.msg-war').hide();", 4500);
+                }
+            }).fail(function(){
+                finalizaPreloader();
+                alert("Falha Inesperada!");
+            });
+
+            return false;
+        });
+    });
+
+
+    function iniciaPreloader(){
+        jQuery(".preloader").show();
+    }
+    function finalizaPreloader(){
+        jQuery(".preloader").hide();
+    }
+
+    function iniciaPreloader() {
+        jQuery('.preloader').show();
+    }
+
+    function finalizaPreloader() {
+        jQuery('.preloader').hide();
+    }
+
+</script>
 </body>
 </html>
