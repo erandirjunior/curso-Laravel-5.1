@@ -32,7 +32,7 @@
                     <a class="edit" onclick="edit('/painel/alunos/editar/{{$aluno->id}}')">
                         <i class="fa fa-pencil-square-o"></i>
                     </a>
-                    <a class="delete" href="" data-toggle="modal" data-target="#modalConfirmacaoDeletar">
+                    <a class="delete" onclick="del('/painel/alunos/deletar/{{$aluno->id}}')">
                         <i class="fa fa-times"></i>
                     </a>
                 </td>

@@ -87,4 +87,11 @@ class AlunoController extends Controller
 
         return 1;
     }
+
+    public function getDeletar($id)
+    {
+        $this->aluno->find($id)->delete();
+
+        return 1;
+    }
 }

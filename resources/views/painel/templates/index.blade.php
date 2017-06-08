@@ -65,11 +65,13 @@
                 <h4 class="modal-title" id="myModalLabel">Deletar</h4>
             </div>
             <div class="modal-body">
+                {!! Form::hidden('url-deletar', null, ['class' => 'url-deletar']) !!}
+                <div class="preloader-deletar" style="display: none">Deletando, por favor aguarde.</div>
                 <p>Deseja realmente deletar?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Deletar</button>
+                <button type="button" class="btn btn-danger btn-confirmar-deletar">Deletar</button>
             </div>
         </div>
     </div>
@@ -83,8 +85,8 @@
 
 <script>
 
-    $(function(){
-        jQuery("form.form-gestao").submit(function(){
+    $(function () {
+        jQuery("form.form-gestao").submit(function () {
             jQuery(".msg-war").hide();
             jQuery(".msg-suc").hide();
 
@@ -95,21 +97,21 @@
                 data: dadosForm,
                 type: "POST",
                 beforeSend: iniciaPreloader()
-            }).done(function(data){
+            }).done(function (data) {
                 finalizaPreloader();
 
-                if( data == "1" ){
+                if (data == "1") {
                     jQuery(".msg-suc").html("Sucesso ao Salvar!");
                     jQuery(".msg-suc").show();
 
                     setTimeout("jQuery('.msg-suc').hide();jQuery('#modalGestao').modal('hide');location.reload();", 4500);
-                }else{
+                } else {
                     jQuery(".msg-war").html(data);
                     jQuery(".msg-war").show();
 
                     setTimeout("jQuery('.msg-war').hide();", 4500);
                 }
-            }).fail(function(){
+            }).fail(function () {
                 finalizaPreloader();
                 alert("Falha Inesperada!");
             });
@@ -119,20 +121,20 @@
     });
 
 
-    function iniciaPreloader(){
+    function iniciaPreloader() {
         jQuery(".preloader").show();
     }
-    function finalizaPreloader(){
+    function finalizaPreloader() {
         jQuery(".preloader").hide();
     }
 
     function edit(url) {
         jQuery.getJSON(url, function (data) {
             jQuery.each(data, function (key, val) {
-                jQuery("input[name='"+key+"']").attr("value", val);
+                jQuery("input[name='" + key + "']").attr("value", val);
 
-                if (jQuery("option[value='"+val+"']").val() == val) {
-                    jQuery("option[value='"+val+"']").attr('selected', true);
+                if (jQuery("option[value='" + val + "']").val() == val) {
+                    jQuery("option[value='" + val + "']").attr('selected', true);
                 }
             });
         });
@@ -141,6 +143,45 @@
 
         jQuery("form.form-gestao").attr("send", url);
         jQuery("form.form-gestao").attr("action", url);
+    };
+
+    function del(url) {
+        jQuery('.url-deletar').val(url);
+
+        jQuery("#modalConfirmacaoDeletar").modal();
+
+    }
+
+    jQuery(".btn-confirmar-deletar").click(function () {
+        var url = jQuery('.url-deletar').val();
+
+        jQuery.ajax({
+            url: url,
+            type: "GET",
+            beforeSend: inicializaPreloaderDeletar()
+        }).done(function (data) {
+            finalizaPreloaderDeletar();
+
+            if (data == "1") {
+                location.reload();
+            } else {
+                alert(data);
+                alert("Falha ao deletar");
+            }
+
+        }).fail(function () {
+            finalizaPreloaderDeletar();
+
+            alert("Falha ao enviar dados");
+        });
+    });
+
+    function inicializaPreloaderDeletar() {
+        jQuery(".preloader-deletar").show();
+    }
+
+    function finalizaPreloaderDeletar() {
+        jQuery(".preloader-deletar").hide();
     }
 
 </script>
