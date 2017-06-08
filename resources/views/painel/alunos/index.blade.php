@@ -29,7 +29,7 @@
                 <td>{{$aluno->telefone}}</td>
                 <td>{{$aluno->data_nascimento}}</td>
                 <td>
-                    <a class="edit" data-toggle="modal" data-target="#modalGestao" href="">
+                    <a class="edit" onclick="edit('/painel/alunos/editar/{{$aluno->id}}')">
                         <i class="fa fa-pencil-square-o"></i>
                     </a>
                     <a class="delete" href="" data-toggle="modal" data-target="#modalConfirmacaoDeletar">

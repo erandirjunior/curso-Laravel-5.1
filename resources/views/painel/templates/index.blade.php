@@ -126,12 +126,21 @@
         jQuery(".preloader").hide();
     }
 
-    function iniciaPreloader() {
-        jQuery('.preloader').show();
-    }
+    function edit(url) {
+        jQuery.getJSON(url, function (data) {
+            jQuery.each(data, function (key, val) {
+                jQuery("input[name='"+key+"']").attr("value", val);
 
-    function finalizaPreloader() {
-        jQuery('.preloader').hide();
+                if (jQuery("option[value='"+val+"']").val() == val) {
+                    jQuery("option[value='"+val+"']").attr('selected', true);
+                }
+            });
+        });
+
+        jQuery("#modalGestao").modal();
+
+        jQuery("form.form-gestao").attr("send", url);
+        jQuery("form.form-gestao").attr("action", url);
     }
 
 </script>

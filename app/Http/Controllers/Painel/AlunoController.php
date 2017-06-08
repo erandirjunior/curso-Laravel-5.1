@@ -59,4 +59,32 @@ class AlunoController extends Controller
 
         return 1;
     }
+
+    public function getEditar($id)
+    {
+        return $this->aluno->find($id)->toJson();
+    }
+
+    public function postEditar($id)
+    {
+        $dadosForm = $this->request->all();
+
+        $validator = $this->validator->make($dadosForm, Aluno::$rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            $displayErrors = '';
+
+            foreach ($messages->all("<p>:message</p>") as $error) {
+                $displayErrors .= $error;
+            }
+
+            return $displayErrors;
+        }
+
+        $this->aluno->find($id)->update($dadosForm);
+
+        return 1;
+    }
 }
