@@ -9,4 +9,9 @@ class Aluno extends Model
     protected $guarded = ['id'];
 
     public static $rules = ['nome' => 'required|min:3|max:60', 'telefone' => 'required|min:11|max:15', 'data_nascimento' => 'required', 'id_turma' => 'required'];
+
+    public function getPais()
+    {
+        return $this->belongsToMany('App\Models\Painel\Pai', 'alunos_pais', 'id_aluno', 'id_pai');
+    }
 }

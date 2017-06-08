@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Painel;
 
 use App\Models\Painel\Aluno;
 use App\Models\Painel\Matricula;
+use App\Models\Painel\Pai;
 use App\Models\Painel\Turma;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ use \Illuminate\Validation\Factory;
 
 class AlunoController extends Controller
 {
+    private $totalItensPorPagina = 10;
     private $aluno;
     private $request;
     private $validator;
@@ -26,7 +28,7 @@ class AlunoController extends Controller
 
     public function getIndex()
     {
-        $alunos = $this->aluno->paginate(10);
+        $alunos = $this->aluno->paginate($this->totalItensPorPagina);
 
         $turmas = Turma::lists('nome', 'id');
 
@@ -93,5 +95,30 @@ class AlunoController extends Controller
         $this->aluno->find($id)->delete();
 
         return 1;
+    }
+
+    public function getPais($id)
+    {
+        $aluno = $this->aluno->find($id);
+
+        $pais = $aluno->getPais()->paginate($this->totalItensPorPagina);
+
+        $titulo = "Pais do aluno: $aluno->nome";
+
+        $paisAdd = Pai::lists('nome', 'id');
+
+        return view('painel.alunos.pais', compact('aluno', 'pais', 'titulo', 'paisAdd', 'id'));
+    }
+
+    public  function postAdicionarPai($id)
+    {
+        $this->aluno->find($id)->getPais()->sync($this->request->get('id_pai'));
+
+        return 1;
+    }
+
+    public function getDeletarPai($idAluno, $idPai)
+    {
+        return $this->aluno->find($idAluno)->getPais()->detach($idPai);
     }
 }

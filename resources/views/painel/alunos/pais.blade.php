@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1 class="titulo-pg-painel">Listagem dos Alunos ({{$alunos->count()}}):</h1>
+    <h1 class="titulo-pg-painel">Listagem dos Pais do Aluno: <b>{{$aluno->nome}}</b> ({{$pais->count()}}):</h1>
 
     <div class="divider"></div>
 
@@ -18,37 +18,29 @@
     <table class="table table-hover">
         <tr>
             <th>Nome</th>
-            <th>Telefone</th>
-            <th>Data Nascimento</th>
-            <th width="100px;"></th>
+            <th>E-mail</th>
+            <th width="70;"></th>
         </tr>
 
-        @forelse($alunos as $aluno)
+        @forelse($pais as $pai)
             <tr>
-                <td>{{$aluno->nome}}</td>
-                <td>{{$aluno->telefone}}</td>
-                <td>{{$aluno->data_nascimento}}</td>
+                <td>{{$pai->nome}}</td>
+                <td>{{$pai->email}}</td>
                 <td>
-                    <a href='{{url("/painel/alunos/pais/{$aluno->id}")}}' class="edit">
-                        <i class="fa fa-users"></i>
-                    </a>
-                    <a class="edit" onclick="edit('/painel/alunos/editar/{{$aluno->id}}')">
-                        <i class="fa fa-pencil-square-o"></i>
-                    </a>
-                    <a class="delete" onclick="del('/painel/alunos/deletar/{{$aluno->id}}')">
+                    <a class="delete" onclick="del('/painel/alunos/deletar-pai/{{$aluno->id}}/{{$pai->id}}')">
                         <i class="fa fa-times"></i>
                     </a>
                 </td>
             </tr>
         @empty
             <tr>
-                <td colspan="3">Nenhum aluno cadastrado.</td>
+                <td colspan="3">Nenhum Pai cadastrado.</td>
             </tr>
         @endforelse
     </table>
 
     <nav>
-        {{$alunos->render()}}
+        {{$pais->render()}}
     </nav>
 
 
@@ -61,28 +53,17 @@
                 <div class="modal-header bg-padrao4">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Gestão de aluno</h4>
+                    <h4 class="modal-title" id="myModalLabel">Adicionar Novo Pai</h4>
                 </div>
 
                 <div class="alert alert-warning msg-war" role="alert" style="display: none"></div>
                 <div class="alert alert-success msg-suc" role="alert" style="display: none"></div>
 
                 <div class="modal-body">
-                    <form class="form-padrao form-gestao" action="/painel/alunos/adicionar-aluno" send="/painel/alunos/adicionar-aluno">
+                    <form class="form-padrao form-gestao" action="/painel/alunos/adicionar-pai/{{$id}}" send="/painel/alunos/adicionar-pai/{{$id}}">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" name="nome" class="form-control" placeholder="Nome do Aluno">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="telefone" class="form-control" placeholder="Telefone do Aluno">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="data_nascimento" class="form-control"
-                                   placeholder="Data de Nascimento do Aluno">
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::select('id_turma', $turmas, null, ['class' => 'form-control']) !!}
+                            {!! Form::select('id_pai[]', $paisAdd, null, ['class' => 'form-control', 'multiple']) !!}
                         </div>
 
                         <div class="preloader" style="display: none">Enviando os dados, por favor aguarde...</div>
