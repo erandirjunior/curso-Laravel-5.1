@@ -32,7 +32,9 @@ class AlunoController extends Controller
 
         $turmas = Turma::lists('nome', 'id');
 
-        return view('painel.alunos.index', compact('alunos', 'turmas'));
+        $titulo = 'Alunos';
+
+        return view('painel.alunos.index', compact('alunos', 'turmas', 'titulo'));
     }
 
     public function postAdicionarAluno()
@@ -120,5 +122,29 @@ class AlunoController extends Controller
     public function getDeletarPai($idAluno, $idPai)
     {
         return $this->aluno->find($idAluno)->getPais()->detach($idPai);
+    }
+
+    public function getPesquisar($pesquisa)
+    {
+        $alunos = $this->aluno->where('nome', 'LIKE', "%{$pesquisa}%")->paginate($this->totalItensPorPagina);
+
+        $turmas = Turma::lists('nome', 'id');
+
+        $titulo = "Resultados da pesquisa: {$pesquisa}";
+
+        return view('painel.alunos.index', compact('alunos', 'turmas', 'pesquisa'));
+    }
+
+    public function getPesquisarPais($id, $pesquisa)
+    {
+        $aluno = $this->aluno->find($id);
+
+        $pais = $aluno->getPais()->where('nome', 'LIKE', "%{$pesquisa}%")->paginate($this->totalItensPorPagina);
+
+        $titulo = "Resultados para a pesquisa: {$pesquisa} | Aluno: {$aluno->nome}";
+
+        $paisAdd = Pai::lists('nome', 'id');
+
+        return view('painel.alunos.pais', compact('aluno', 'pais', 'titulo', 'paisAdd', 'id', 'pesquisa'));
     }
 }

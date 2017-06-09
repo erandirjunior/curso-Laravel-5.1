@@ -2,17 +2,23 @@
 
 @section('content')
 
+    <a href="{{url('/painel/alunos')}}"><i class="fa phpdebugbar-fa-angle-double-left"></i> Voltar para listagem dos alunos.</a>
+
     <h1 class="titulo-pg-painel">Listagem dos Pais do Aluno: <b>{{$aluno->nome}}</b> ({{$pais->count()}}):</h1>
 
     <div class="divider"></div>
 
     <div class="col-md-12">
 
-        <form class="form-padrao form-inline padding-20">
+        <form class="form-padrao form-inline padding-20 form-pesquisa" method="post" send="/painel/alunos/pesquisar-pais/{{$id}}/">
             <a href="" class="btn-cadastrar" data-toggle="modal" data-target="#modalGestao"><i
                         class="fa fa-plus-circle"></i> Cadastrar</a>
-            <input type="text" placeholder="Pesquisa">
+            <input type="text" placeholder="Pesquisa" class="texto-pesquisa">
         </form>
+
+        @if(isset($pesquisa))
+            <p>Resultados para a pesquisa:  <b>{{$pesquisa}}</b></p>
+        @endif
     </div>
 
     <table class="table table-hover">

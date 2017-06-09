@@ -8,11 +8,15 @@
 
     <div class="col-md-12">
 
-        <form class="form-padrao form-inline padding-20">
+        <form class="form-padrao form-inline padding-20 form-pesquisa" method="post" send="/painel/alunos/pesquisar/">
             <a href="" class="btn-cadastrar" data-toggle="modal" data-target="#modalGestao"><i
                         class="fa fa-plus-circle"></i> Cadastrar</a>
-            <input type="text" placeholder="Pesquisa">
+            <input type="text" placeholder="Pesquisa" class="texto-pesquisa">
         </form>
+
+        @if(isset($pesquisa))
+            <p>Resultados para a pesquisa:  <b>{{$pesquisa}}</b></p>
+        @endif
     </div>
 
     <table class="table table-hover">
@@ -68,7 +72,8 @@
                 <div class="alert alert-success msg-suc" role="alert" style="display: none"></div>
 
                 <div class="modal-body">
-                    <form class="form-padrao form-gestao" action="/painel/alunos/adicionar-aluno" send="/painel/alunos/adicionar-aluno">
+                    <form class="form-padrao form-gestao" action="/painel/alunos/adicionar-aluno"
+                          send="/painel/alunos/adicionar-aluno">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <input type="text" name="nome" class="form-control" placeholder="Nome do Aluno">
