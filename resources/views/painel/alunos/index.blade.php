@@ -24,6 +24,8 @@
             <th>Nome</th>
             <th>Telefone</th>
             <th>Data Nascimento</th>
+            <th>Matricula</th>
+            <th>Turma</th>
             <th width="100px;"></th>
         </tr>
 
@@ -32,6 +34,8 @@
                 <td>{{$aluno->nome}}</td>
                 <td>{{$aluno->telefone}}</td>
                 <td>{{$aluno->data_nascimento}}</td>
+                <td>{{$aluno->matricula}}</td>
+                <td>{{$aluno->turma}}</td>
                 <td>
                     <a href='{{url("/painel/alunos/pais/{$aluno->id}")}}' class="edit">
                         <i class="fa fa-users"></i>

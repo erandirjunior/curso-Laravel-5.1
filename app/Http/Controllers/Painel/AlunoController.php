@@ -7,6 +7,7 @@ use App\Models\Painel\Matricula;
 use App\Models\Painel\Pai;
 use App\Models\Painel\Turma;
 use Illuminate\Http\Request;
+use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,9 @@ class AlunoController extends Controller
 
     public function getIndex()
     {
-        $alunos = $this->aluno->paginate($this->totalItensPorPagina);
+        //$alunos = $this->aluno->paginate($this->totalItensPorPagina);
+
+        $alunos = DB::table('alunos')->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')->join('turmas', 'turmas.id', '=', 'alunos.id_turma')->select('matriculas.numero as matricula', 'alunos.nome', 'alunos.telefone', 'alunos.data_nascimento', 'alunos.id', 'turmas.nome as turma')->paginate($this->totalItensPorPagina);
 
         $turmas = Turma::lists('nome', 'id');
 
