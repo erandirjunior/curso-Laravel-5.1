@@ -128,7 +128,7 @@ class AlunoController extends Controller
         return $this->aluno->find($idAluno)->getPais()->detach($idPai);
     }
 
-    public function getPesquisar($pesquisa)
+    public function getPesquisar($pesquisa = '')
     {
         $alunos = $this->aluno->where('nome', 'LIKE', "%{$pesquisa}%")->paginate($this->totalItensPorPagina);
 
