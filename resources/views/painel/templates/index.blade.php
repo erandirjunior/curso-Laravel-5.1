@@ -33,8 +33,8 @@
         {!!HTML::image('assets/imgs/logo-especializati.png', 'EspecializaTi', ['class' => 'logo-painel', 'title' => 'EspecializaTi - Curso de Laravel 5.1'])!!}
 
         <select class="acoes-painel">
-            <option>{{Auth::user()->name}}</option>
-            <option class="sair">Sair</option>
+            <option value="{{Auth::user()->name}}">{{Auth::user()->name}}</option>
+            <option value="sair" class="sair">Sair</option>
         </select>
     </div>
     <!--End Top-->
@@ -191,6 +191,12 @@
         location.href = url + textoPesquisa;
 
         return false;
+    });
+
+    jQuery(".acoes-painel").change(function () {
+        if(jQuery(this).val()) {
+            location.href = "{{url('/logout')}}";
+        }
     });
 
 </script>
