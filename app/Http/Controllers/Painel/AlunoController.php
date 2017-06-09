@@ -94,7 +94,11 @@ class AlunoController extends Controller
 
     public function getDeletar($id)
     {
-        $this->aluno->find($id)->delete();
+        $aluno = $this->aluno->find($id);
+
+        $aluno->getPais()->detach();
+
+        $aluno->delete();
 
         return 1;
     }
