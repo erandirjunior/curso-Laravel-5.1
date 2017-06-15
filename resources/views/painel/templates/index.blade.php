@@ -80,6 +80,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{!! HTML::script('assets/js/jquery.mask.js') !!}
 
 @yield('scripts')
 
@@ -197,6 +198,16 @@
         if(jQuery(this).val()) {
             location.href = "{{url('/logout')}}";
         }
+    });
+
+    jQuery(".btn-cadastrar").click(function () {
+        jQuery("form.form-gestao").attr("send", urlAdd);
+        jQuery("form.form-gestao").attr("action", urlAdd);
+
+        jQuery("input[type='text']").attr("value", "");
+
+        jQuery("#telefone").mask("(00) 00000-0000");
+        jQuery("#data_nascimento").mask("00/00/0000");
     });
 
 </script>

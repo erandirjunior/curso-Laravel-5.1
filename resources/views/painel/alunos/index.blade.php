@@ -15,7 +15,7 @@
         </form>
 
         @if(isset($pesquisa))
-            <p>Resultados para a pesquisa:  <b>{{$pesquisa}}</b></p>
+            <p>Resultados para a pesquisa: <b>{{$pesquisa}}</b></p>
         @endif
     </div>
 
@@ -83,10 +83,10 @@
                             <input type="text" name="nome" class="form-control" placeholder="Nome do Aluno">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="telefone" class="form-control" placeholder="Telefone do Aluno">
+                            <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone do Aluno">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="data_nascimento" class="form-control"
+                            <input type="text" name="data_nascimento" id="data_nascimento" class="form-control"
                                    placeholder="Data de Nascimento do Aluno">
                         </div>
 
@@ -106,4 +106,10 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        var urlAdd = '/painel/alunos/adicionar';
+    </script>
 @endsection

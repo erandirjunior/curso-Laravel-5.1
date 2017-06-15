@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Models\Painel\Aluno;
+use App\Models\Painel\Carro;
 use App\Models\Painel\Matricula;
 use App\Models\Painel\Pai;
 use App\Models\Painel\Turma;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
@@ -31,7 +33,7 @@ class AlunoController extends Controller
     {
         //$alunos = $this->aluno->paginate($this->totalItensPorPagina);
 
-        $alunos = DB::table('alunos')->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')->join('turmas', 'turmas.id', '=', 'alunos.id_turma')->select('matriculas.numero as matricula', 'alunos.nome', 'alunos.telefone', 'alunos.data_nascimento', 'alunos.id', 'turmas.nome as turma')->paginate($this->totalItensPorPagina);
+        $alunos = $this->aluno->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')->join('turmas', 'turmas.id', '=', 'alunos.id_turma')->select('matriculas.numero as matricula', 'alunos.nome', 'alunos.telefone', 'alunos.data_nascimento', 'alunos.id', 'turmas.nome as turma')->paginate($this->totalItensPorPagina);
 
         $turmas = Turma::lists('nome', 'id');
 
@@ -57,6 +59,8 @@ class AlunoController extends Controller
 
             return $displayErrors;
         }
+
+        $dadosForm['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $dadosForm['data_nascimento'])->toDateString();
 
         $aluno = $this->aluno->create($dadosForm);
 
