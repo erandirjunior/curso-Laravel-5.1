@@ -94,6 +94,8 @@ class AlunoController extends Controller
             return $displayErrors;
         }
 
+        $dadosForm['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $dadosForm['data_nascimento'])->toDateString();
+
         $this->aluno->find($id)->update($dadosForm);
 
         return 1;
