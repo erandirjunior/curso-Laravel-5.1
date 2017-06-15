@@ -14,6 +14,7 @@
 // Painel routes
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function () {
     Route::controller('alunos', 'Painel\AlunoController');
+    Route::controller('turmas', 'Painel\TurmaController');
 
     Route::controller('/', 'Painel\PainelController');
 });
