@@ -10,6 +10,7 @@ use App\Models\Painel\Turma;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use Defender;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -31,15 +32,17 @@ class AlunoController extends Controller
 
     public function getIndex()
     {
-        //$alunos = $this->aluno->paginate($this->totalItensPorPagina);
+        if (Defender::hasPermission('alunos.index')) {
+            $alunos = $this->aluno->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')->join('turmas', 'turmas.id', '=', 'alunos.id_turma')->select('matriculas.numero as matricula', 'alunos.nome', 'alunos.telefone', 'alunos.data_nascimento', 'alunos.id', 'turmas.nome as turma')->paginate($this->totalItensPorPagina);
 
-        $alunos = $this->aluno->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')->join('turmas', 'turmas.id', '=', 'alunos.id_turma')->select('matriculas.numero as matricula', 'alunos.nome', 'alunos.telefone', 'alunos.data_nascimento', 'alunos.id', 'turmas.nome as turma')->paginate($this->totalItensPorPagina);
+            $turmas = Turma::lists('nome', 'id');
 
-        $turmas = Turma::lists('nome', 'id');
+            $titulo = 'Alunos';
 
-        $titulo = 'Alunos';
-
-        return view('painel.alunos.index', compact('alunos', 'turmas', 'titulo'));
+            return view('painel.alunos.index', compact('alunos', 'turmas', 'titulo'));
+        } else {
+            return view('painel.403.index');
+        }
     }
 
     public function postAdicionarAluno()

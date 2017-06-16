@@ -141,6 +141,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
 
         App\Providers\LogServiceProvider::class,
+        \Artesaos\Defender\Providers\DefenderServiceProvider::class,
 
 
         /*
@@ -201,6 +202,7 @@ return [
 
         'Form'      => Illuminate\Html\FormFacade::class,
         'HTML'      => Illuminate\Html\HtmlFacade::class,
+        'Defender' => \Artesaos\Defender\Facades\Defender::class,
 
     ],
 
