@@ -4,9 +4,6 @@
             <a href="{{url('/painel/')}}"><i class="fa fa-tachometer"></i> Dashboard</a>
         </li>
         <li>
-            <a href="{{url('/painel/meu-perfil')}}"><i class="fa fa-user-secret"></i> Meu Perfil</a>
-        </li>
-        <li>
             <a href="{{url('/painel/alunos')}}"><i class="fa fa-user"></i> Alunos</a>
         </li>
         <li>

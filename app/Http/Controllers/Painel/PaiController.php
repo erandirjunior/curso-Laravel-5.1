@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\StandardController;
 use \Illuminate\Validation\Factory;
 
-class PaiController extends StandardController\Controller
+class PaiController extends StandardController
 {
     protected $model;
     protected $request;

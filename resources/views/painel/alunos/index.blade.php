@@ -110,6 +110,6 @@
 
 @section('scripts')
     <script>
-        var urlAdd = '/painel/alunos/adicionar';
+        var urlAdd = '/painel/alunos/adicionar-aluno';
     </script>
 @endsection

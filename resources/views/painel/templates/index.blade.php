@@ -86,6 +86,7 @@
 
 <script>
 
+    // Inicio cadastro com JQuery
     $(function () {
         jQuery("form.form-gestao").submit(function () {
             jQuery(".msg-war").hide();
@@ -128,7 +129,9 @@
     function finalizaPreloader() {
         jQuery(".preloader").hide();
     }
+    // Fim cadastro com JQuery
 
+    // Inicio editar com JQuery
     function edit(url) {
         jQuery.getJSON(url, function (data) {
             jQuery.each(data, function (key, val) {
@@ -145,7 +148,9 @@
         jQuery("form.form-gestao").attr("send", url);
         jQuery("form.form-gestao").attr("action", url);
     };
+    // Fim editar com JQuery
 
+    // Inicio deletar com JQuery
     function del(url) {
         jQuery('.url-deletar').val(url);
 
@@ -171,7 +176,7 @@
             }
 
         }).fail(function () {
-            finalizaPreloaderDeletar();
+            finalizaPreloaderDeletar();cadastro
 
             alert("Falha ao enviar dados");
         });
@@ -184,7 +189,9 @@
     function finalizaPreloaderDeletar() {
         jQuery(".preloader-deletar").hide();
     }
+    // Fim deletar com JQuery
 
+    // Inicio pesquisa com JQuery
     jQuery("form.form-pesquisa").submit(function () {
         var textoPesquisa = jQuery(".texto-pesquisa").val();
         var url = jQuery(this).attr("send");
@@ -193,6 +200,8 @@
 
         return false;
     });
+    // Fim pesquisas com JQuery
+
 
     jQuery(".acoes-painel").change(function () {
         if(jQuery(this).val()) {
